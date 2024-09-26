@@ -171,7 +171,7 @@
         const pages = [
             {
                 title: "Definitions and Overview",
-                content: `
+                content: 
                     <h3>Defining Family in the Skyvibez Saga</h3>
                     <p><strong>Family:</strong> In the context of this saga, a family consists of Skyvibez (or another player) as the central figure, along with their wives and children acquired during raid encounters.</p>
                     <p><strong>Children:</strong> Offspring resulting from the union of Skyvibez (or another player) and their wives, typically quantified as 10 children per wife.</p>
@@ -196,11 +196,11 @@
                     <div class="chart-container">
                         <canvas id="overallChart"></canvas>
                     </div>
-                `
+                
             },
             {
                 title: "Nexus-Princess Ky'veza – The Founder of Dynasties",
-                content: `
+                content: 
                     <img src="https://assets.rpglogs.com/img/warcraft/bosses/2920-icon.jpg" alt="Nexus-Princess Ky'veza" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
@@ -222,11 +222,11 @@
                     <div class="chart-container">
                         <canvas id="kyvezaChart"></canvas>
                     </div>
-                `
+                
             },
             {
                 title: "Sikran, Captain of the Sureki – The Family Fleet Admiral",
-                content: `
+                content: 
                     <img src="https://assets.rpglogs.com/img/warcraft/bosses/2898-icon.jpg" alt="Sikran, Captain of the Sureki" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
@@ -248,11 +248,11 @@
                     <div class="chart-container">
                         <canvas id="sikranChart"></canvas>
                     </div>
-                `
+                
             },
             {
                 title: "The Bloodbound Horror – The Genealogical Nightmare",
-                content: `
+                content: 
                     <img src="https://assets.rpglogs.com/img/warcraft/bosses/2917-icon.jpg" alt="The Bloodbound Horror" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
@@ -274,11 +274,11 @@
                     <div class="chart-container">
                         <canvas id="bloodboundChart"></canvas>
                     </div>
-                `
+                
             },
             {
                 title: "Ulgrax the Devourer – The Family Feast",
-                content: `
+                content: 
                     <img src="https://assets.rpglogs.com/img/warcraft/bosses/2902-icon.jpg" alt="Ulgrax the Devourer" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
@@ -300,7 +300,7 @@
                     <div class="chart-container">
                         <canvas id="ulgraxChart"></canvas>
                     </div>
-                `
+                
             }
         ];
 
@@ -311,12 +311,12 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
 
-            pageContent.innerHTML = `
+            pageContent.innerHTML = 
                 <div class="page">
                     <h2>${pages[currentPage].title}</h2>
                     ${pages[currentPage].content}
                 </div>
-            `;
+            ;
 
             prevBtn.style.display = currentPage > 0 ? 'block' : 'none';
             nextBtn.style.display = currentPage < pages.length - 1 ? 'block' : 'none';
@@ -380,3 +380,91 @@
     </script>
 </body>
 </html
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyvibez MVP Performance</title>
+    <!-- React and ReactDOM from CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- Tailwind CSS from CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        function ModernPerformanceChart() {
+            const maxHeight = 250;
+            const barWidth = 40;
+            const gap = 40;
+
+            const data = [
+                { name: 'Sudi', height: maxHeight / 32, color: '#ff6b6b', percentage: '3%' },
+                { name: 'Avg DPS', height: maxHeight / 2.5, color: '#4ecdc4', percentage: '40%' },
+                { name: 'Kokskajsa', height: maxHeight / 2.4, color: '#45b7d1', percentage: '42%' },
+                { name: 'Skyvibez', height: maxHeight, color: '#3a7bd5', percentage: '96%' }
+            ];
+
+            return (
+                <div className="flex flex-col items-center p-8 bg-gradient-to-br from-gray-900 to-blue-900 text-white font-sans rounded-lg shadow-lg">
+                    <svg width="400" height="400" viewBox="0 0 400 400">
+                        {/* Rocket Design for Each Bar */}
+                        {data.map((item, index) => (
+                            <g key={item.name} transform={translate(${50 + index * (barWidth + gap)}, ${350 - item.height})}>
+                                {/* Rocket Body */}
+                                <rect width={barWidth} height={item.height} fill={item.color} rx="5" ry="5" />
+                                {/* Rocket Head */}
+                                <polygon points={${barWidth/2},0 ${barWidth},30 0,30} fill={item.color} />
+                                {/* Rocket Flames */}
+                                {item.name === 'Skyvibez' && (
+                                    <polygon points={${barWidth/2},${item.height + 30} ${barWidth + 10},${item.height + 60} ${-10},${item.height + 60}} fill="#f39c12" />
+                                )}
+                                <text x={barWidth/2} y={item.height + 50} fill="white" textAnchor="middle" fontSize="12">{item.name}</text>
+                                <text x={barWidth/2} y={item.height + 70} fill="white" textAnchor="middle" fontSize="10">{item.percentage}</text>
+                            </g>
+                        ))}
+                        
+                        {/* Title */}
+                        <text x="200" y="30" fill="#61dafb" textAnchor="middle" fontSize="20" fontWeight="bold">
+                            Skyvibez: MVP Performance
+                        </text>
+                    </svg>
+                    
+                    <div className="mt-8 text-center max-w-md">
+                        <h2 className="text-2xl font-bold mb-4 text-blue-300">Performance Breakdown</h2>
+                        <p className="mb-2">🚀 Skyvibez outperformed the competition:</p>
+                        <ul className="list-none p-0">
+                            <li>📊 32x more effective than Sudi (lowest performer)</li>
+                            <li>📈 2.4x more impactful than Kokskajsa (mid-performer)</li>
+                            <li>🔥 2.5x above the average DPS player</li>
+                        </ul>
+                        <p className="mt-4 text-sm text-gray-300">Skyvibez's 96% contribution solidifies their MVP status, showcasing unparalleled skill and teamwork.</p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<ModernPerformanceChart />, document.getElementById('app'));
+    </script>
+</body>
+</html>
