@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Legend of Skyvibez: The Statistical Family Saga</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <style>
         :root {
             --bg-color: #f0f0f0;
@@ -139,6 +140,21 @@
         tr:nth-child(even) {
             background-color: rgba(74, 134, 232, 0.1);
         }
+
+        .boss-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
     </style>
 </head>
 <body>
@@ -154,8 +170,12 @@
     <script>
         const pages = [
             {
-                title: "The Skyvibez Saga: A Statistical Overview",
+                title: "Definitions and Overview",
                 content: `
+                    <h3>Defining Family in the Skyvibez Saga</h3>
+                    <p><strong>Family:</strong> In the context of this saga, a family consists of Skyvibez (or another player) as the central figure, along with their wives and children acquired during raid encounters.</p>
+                    <p><strong>Children:</strong> Offspring resulting from the union of Skyvibez (or another player) and their wives, typically quantified as 10 children per wife.</p>
+                    
                     <h3>Overall Performance</h3>
                     <div class="stats">
                         <div class="stat-box">
@@ -173,53 +193,15 @@
                         <li>Outperformed by 404.17% in total family creation</li>
                         <li>97 more wives and 970 more children overall</li>
                     </ul>
-                    <h3>Boss-by-Boss Breakdown</h3>
-                    <table>
-                        <tr>
-                            <th>Boss</th>
-                            <th>Skyvibez</th>
-                            <th>Lowest DPS Player</th>
-                            <th>Lowest DPS Score</th>
-                            <th>Equivalence</th>
-                        </tr>
-                        <tr>
-                            <td>Nexus-Princess Kyveza</td>
-                            <td>32 wives, 320 children</td>
-                            <td>Meldax</td>
-                            <td>7 wives, 70 children</td>
-                            <td>4.57 Meldaxes</td>
-                        </tr>
-                        <tr>
-                            <td>Sikran, Captain of the Sureki</td>
-                            <td>28 wives, 280 children</td>
-                            <td>Sudi</td>
-                            <td>6 wives, 60 children</td>
-                            <td>4.67 Sudis</td>
-                        </tr>
-                        <tr>
-                            <td>The Bloodbound Horror</td>
-                            <td>28 wives, 280 children</td>
-                            <td>Mimsey</td>
-                            <td>6 wives, 60 children</td>
-                            <td>4.67 Mimseys</td>
-                        </tr>
-                        <tr>
-                            <td>Ulgrax the Devourer</td>
-                            <td>33 wives, 330 children</td>
-                            <td>Meldax</td>
-                            <td>5 wives, 50 children</td>
-                            <td>6.60 Meldaxes</td>
-                        </tr>
-                    </table>
-                    <h3>The Skyvibez Effect</h3>
-                    <p>On average, it would take <strong>5.13 low DPS players</strong> to match Skyvibez's performance in a single encounter.</p>
-                    <p>For the entire raid, you would need <strong>5.04 low DPS players</strong> to equal one Skyvibez!</p>
-                    <p class="comparison">If Skyvibez were a one-man army, the lowest DPS would need to form a small platoon just to keep up!</p>
+                    <div class="chart-container">
+                        <canvas id="overallChart"></canvas>
+                    </div>
                 `
             },
             {
-                title: "Nexus-Princess Kyveza – The Founder of Dynasties",
+                title: "Nexus-Princess Ky'veza – The Founder of Dynasties",
                 content: `
+                    <img src="https://assets.rpglogs.com/img/warcraft/bosses/2920-icon.jpg" alt="Nexus-Princess Ky'veza" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
                             <h3>Skyvibez</h3>
@@ -237,11 +219,15 @@
                         <li>Skyvibez's family is 4.57 times larger than Meldax's</li>
                     </ul>
                     <p class="comparison">If Skyvibez was founding a new country, Meldax was just starting a book club.</p>
+                    <div class="chart-container">
+                        <canvas id="kyvezaChart"></canvas>
+                    </div>
                 `
             },
             {
                 title: "Sikran, Captain of the Sureki – The Family Fleet Admiral",
                 content: `
+                    <img src="https://assets.rpglogs.com/img/warcraft/bosses/2898-icon.jpg" alt="Sikran, Captain of the Sureki" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
                             <h3>Skyvibez</h3>
@@ -259,11 +245,15 @@
                         <li>Skyvibez's family is 4.67 times larger than Sudi's</li>
                     </ul>
                     <p class="comparison">Skyvibez was like a cruise ship full of families, while Sudi was a rowboat with a couple of fishing rods.</p>
+                    <div class="chart-container">
+                        <canvas id="sikranChart"></canvas>
+                    </div>
                 `
             },
             {
                 title: "The Bloodbound Horror – The Genealogical Nightmare",
                 content: `
+                    <img src="https://assets.rpglogs.com/img/warcraft/bosses/2917-icon.jpg" alt="The Bloodbound Horror" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
                             <h3>Skyvibez</h3>
@@ -281,11 +271,15 @@
                         <li>Skyvibez's family tree has 4.67 times more branches than Mimsey's</li>
                     </ul>
                     <p class="comparison">Skyvibez was the entire "23 and Me" database, while Mimsey was a hastily scribbled family tree on a napkin.</p>
+                    <div class="chart-container">
+                        <canvas id="bloodboundChart"></canvas>
+                    </div>
                 `
             },
             {
                 title: "Ulgrax the Devourer – The Family Feast",
                 content: `
+                    <img src="https://assets.rpglogs.com/img/warcraft/bosses/2902-icon.jpg" alt="Ulgrax the Devourer" class="boss-image">
                     <div class="stats">
                         <div class="stat-box">
                             <h3>Skyvibez</h3>
@@ -303,6 +297,9 @@
                         <li>Skyvibez's family is 6.6 times larger than Meldax's</li>
                     </ul>
                     <p class="comparison">Skyvibez was hosting the world's largest family game night, while Meldax was playing solitaire.</p>
+                    <div class="chart-container">
+                        <canvas id="ulgraxChart"></canvas>
+                    </div>
                 `
             }
         ];
@@ -323,6 +320,46 @@
 
             prevBtn.style.display = currentPage > 0 ? 'block' : 'none';
             nextBtn.style.display = currentPage < pages.length - 1 ? 'block' : 'none';
+
+            renderCharts();
+        }
+
+        function renderCharts() {
+            const charts = [
+                { id: 'overallChart', skyvibez: 1331, lowest: 264 },
+                { id: 'kyvezaChart', skyvibez: 352, lowest: 77 },
+                { id: 'sikranChart', skyvibez: 308, lowest: 66 },
+                { id: 'bloodboundChart', skyvibez: 308, lowest: 66 },
+                { id: 'ulgraxChart', skyvibez: 363, lowest: 55 }
+            ];
+
+            charts.forEach(chart => {
+                const ctx = document.getElementById(chart.id);
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Skyvibez', 'Lowest DPS'],
+                            datasets: [{
+                                data: [chart.skyvibez, chart.lowest],
+                                backgroundColor: ['#4a86e8', '#34a853']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Family Size Comparison'
+                                }
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         document.getElementById('prevBtn').addEventListener('click', () => {
@@ -342,4 +379,4 @@
         renderPage();
     </script>
 </body>
-</html>
+</html
