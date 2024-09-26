@@ -45,14 +45,14 @@
                     <svg width="400" height="400" viewBox="0 0 400 400">
                         {/* Rocket Design for Each Bar */}
                         {data.map((item, index) => (
-                            <g key={item.name} transform={`translate(${50 + index * (barWidth + gap)}, ${350 - item.height})`}>
+                            <g key={item.name} transform={translate(${50 + index * (barWidth + gap)}, ${350 - item.height})}>
                                 {/* Rocket Body */}
                                 <rect width={barWidth} height={item.height} fill={item.color} rx="5" ry="5" />
                                 {/* Rocket Head */}
-                                <polygon points={`${barWidth/2},0 ${barWidth},30 0,30`} fill={item.color} />
+                                <polygon points={${barWidth/2},0 ${barWidth},30 0,30} fill={item.color} />
                                 {/* Rocket Flames */}
                                 {item.name === 'Skyvibez' && (
-                                    <polygon points={`${barWidth/2},${item.height + 30} ${barWidth + 10},${item.height + 60} ${-10},${item.height + 60}`} fill="#f39c12" />
+                                    <polygon points={${barWidth/2},${item.height + 30} ${barWidth + 10},${item.height + 60} ${-10},${item.height + 60}} fill="#f39c12" />
                                 )}
                                 <text x={barWidth/2} y={item.height + 50} fill="white" textAnchor="middle" fontSize="12">{item.name}</text>
                                 <text x={barWidth/2} y={item.height + 70} fill="white" textAnchor="middle" fontSize="10">{item.percentage}</text>
