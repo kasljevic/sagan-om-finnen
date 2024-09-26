@@ -3,242 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyvibez Data Journey</title>
-    <!-- React and ReactDOM from CDN -->
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <!-- CSS Styling -->
+    <title>The Legend of Skyvibez: The Statistical Family Saga</title>
     <style>
+        :root {
+            --bg-color: #f0f0f0;
+            --text-color: #333;
+            --primary-color: #4a86e8;
+            --secondary-color: #34a853;
+            --card-bg: #fff;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #e0e0e0;
+                --primary-color: #5dade2;
+                --secondary-color: #45b39d;
+                --card-bg: #2c2c2c;
+                --card-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+            }
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
-            width: 90%;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #1e1e1e;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .header {
+        h1, h2, h3 {
+            color: var(--primary-color);
             text-align: center;
-            margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2.5em;
-            color: #BB86FC;
-        }
-
-        .step {
-            background-color: #2c2c2c;
-            border-radius: 10px;
+        .page {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
             margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
         }
 
-        .step h2 {
-            font-size: 1.5em;
-            color: #03DAC6;
-            cursor: pointer;
+        .page:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .step p {
-            margin: 10px 0;
-            line-height: 1.6;
-        }
-
-        .step-details {
-            display: none;
-            padding: 10px;
-            background-color: #333;
-            border-radius: 8px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .show {
-            display: block;
-        }
-
-        .next-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            background-color: #03DAC6;
-            color: #1e1e1e;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .next-btn:hover {
-            background-color: #018786;
-        }
-
-        .visualization {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .chart-bar {
-            width: 100%;
-            height: 30px;
-            background-color: #BB86FC;
-            margin: 5px 0;
-            border-radius: 5px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .chart-bar span {
-            height: 100%;
-            display: inline-block;
-            background-color: #03DAC6;
-            border-radius: 5px;
-            transition: width 0.5s ease;
-        }
-
-        .chart-label {
-            font-size: 1em;
-            color: #f0f0f0;
+        .navigation {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-top: 20px;
         }
 
-        .no-skyvibez {
-            color: #CF6679;
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .stat-box h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .stat-box p {
+            margin: 5px 0 0;
+            font-size: 1.5em;
             font-weight: bold;
         }
 
-        .icon {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
-            margin-right: 5px;
-            fill: #03DAC6;
+        .comparison {
+            font-style: italic;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: var(--secondary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid var(--primary-color);
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(74, 134, 232, 0.1);
         }
     </style>
 </head>
 <body>
-    <div id="app" class="container"></div>
+    <div class="container">
+        <h1>The Legend of Skyvibez: The Statistical Family Saga</h1>
+        <div id="pageContent"></div>
+        <div class="navigation">
+            <button id="prevBtn" style="display:none;">Previous</button>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
 
-    <script type="text/babel">
-        const { useState } = React;
-
-        function Encounter({ title, overview, details, dpsSkyvibez, dpsWithout }) {
-            const [isExpanded, setIsExpanded] = useState(false);
-
-            return (
-                <div className="step">
-                    <h2 onClick={() => setIsExpanded(!isExpanded)}>
-                        <svg className="icon" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
-                        {title}
-                    </h2>
-                    <p>{overview}</p>
-                    {isExpanded && (
-                        <div className="step-details show">
-                            <p>{details}</p>
-                            <div className="visualization">
-                                <div className="chart-label">
-                                    <span>With Skyvibez</span> <span>{dpsSkyvibez} DPS</span>
-                                </div>
-                                <div className="chart-bar">
-                                    <span style={{ width: `${dpsSkyvibez / 10}%` }}></span>
-                                </div>
-                                <div className="chart-label no-skyvibez">
-                                    <span>Without Skyvibez</span> <span>{dpsWithout} DPS</span>
-                                </div>
-                                <div className="chart-bar" style={{ backgroundColor: '#CF6679' }}>
-                                    <span style={{ width: `${dpsWithout / 10}%` }}></span>
-                                </div>
-                            </div>
+    <script>
+        const pages = [
+            {
+                title: "The Skyvibez Saga: A Statistical Overview",
+                content: `
+                    <h3>Overall Performance</h3>
+                    <div class="stats">
+                        <div class="stat-box">
+                            <h3>Skyvibez Total</h3>
+                            <p>121 wives, 1,210 children</p>
                         </div>
-                    )}
-                </div>
-            );
-        }
-
-        function App() {
-            const encounters = [
-                {
-                    title: "Nexus-Princess Kyveza – The Game Changer",
-                    overview: "Skyvibez contributed 804,903 DPS, elevating the entire raid.",
-                    details: "Without Skyvibez, the raid would have dropped to a mere 400,000 DPS. That’s like taking the rocket fuel out of a spaceship and expecting it to fly.",
-                    dpsSkyvibez: 804903,
-                    dpsWithout: 400000
-                },
-                {
-                    title: "Sikran, Captain of the Sureki – The Difference Maker",
-                    overview: "Skyvibez delivered 961,212 DPS, keeping the raid afloat.",
-                    details: "Without Skyvibez, the DPS would have plummeted to 350,000. It’s like replacing a sports car’s engine with a lawnmower’s and hoping to win the race.",
-                    dpsSkyvibez: 961212,
-                    dpsWithout: 350000
-                },
-                {
-                    title: "The Bloodbound Horror – The Savior",
-                    overview: "Skyvibez clocked in at 824,357 DPS, carrying the team.",
-                    details: "Without Skyvibez, the team would have dropped to 380,000 DPS. That’s like trying to win a marathon with your shoelaces tied together.",
-                    dpsSkyvibez: 824357,
-                    dpsWithout: 380000
-                },
-                {
-                    title: "Ulgrax the Devourer – The Raid’s Backbone",
-                    overview: "Skyvibez hit 907,266 DPS, ensuring victory.",
-                    details: "Without Skyvibez, the DPS would have fallen to 300,000. It’s like taking a cannon to a water balloon fight and then swapping it for a slingshot.",
-                    dpsSkyvibez: 907266,
-                    dpsWithout: 300000
-                }
-            ];
-
-            const [currentIndex, setCurrentIndex] = useState(0);
-
-            const showNextEncounter = () => {
-                if (currentIndex < encounters.length - 1) {
-                    setCurrentIndex(currentIndex + 1);
-                }
-            };
-
-            return (
-                <div>
-                    <div className="header">
-                        <h1>The Legend of Skyvibez</h1>
-                        <p>Step-by-step, see how Skyvibez turned the tide in every encounter.</p>
+                        <div class="stat-box">
+                            <h3>Lowest DPS Total</h3>
+                            <p>24 wives, 240 children</p>
+                        </div>
                     </div>
-                    {encounters.slice(0, currentIndex + 1).map((encounter, index) => (
-                        <Encounter
-                            key={index}
-                            title={encounter.title}
-                            overview={encounter.overview}
-                            details={encounter.details}
-                            dpsSkyvibez={encounter.dpsSkyvibez}
-                            dpsWithout={encounter.dpsWithout}
-                        />
-                    ))}
-                    {currentIndex < encounters.length - 1 && (
-                        <button className="next-btn" onClick={showNextEncounter}>
-                            Show Next Encounter
-                        </button>
-                    )}
+                    <p><strong>Skyvibez's Dominance:</strong></p>
+                    <ul>
+                        <li>Total family size is 5.04 times larger than the lowest DPS</li>
+                        <li>Outperformed by 404.17% in total family creation</li>
+                        <li>97 more wives and 970 more children overall</li>
+                    </ul>
+                    <h3>Boss-by-Boss Breakdown</h3>
+                    <table>
+                        <tr>
+                            <th>Boss</th>
+                            <th>Skyvibez</th>
+                            <th>Lowest DPS Player</th>
+                            <th>Lowest DPS Score</th>
+                            <th>Equivalence</th>
+                        </tr>
+                        <tr>
+                            <td>Nexus-Princess Kyveza</td>
+                            <td>32 wives, 320 children</td>
+                            <td>Meldax</td>
+                            <td>7 wives, 70 children</td>
+                            <td>4.57 Meldaxes</td>
+                        </tr>
+                        <tr>
+                            <td>Sikran, Captain of the Sureki</td>
+                            <td>28 wives, 280 children</td>
+                            <td>Sudi</td>
+                            <td>6 wives, 60 children</td>
+                            <td>4.67 Sudis</td>
+                        </tr>
+                        <tr>
+                            <td>The Bloodbound Horror</td>
+                            <td>28 wives, 280 children</td>
+                            <td>Mimsey</td>
+                            <td>6 wives, 60 children</td>
+                            <td>4.67 Mimseys</td>
+                        </tr>
+                        <tr>
+                            <td>Ulgrax the Devourer</td>
+                            <td>33 wives, 330 children</td>
+                            <td>Meldax</td>
+                            <td>5 wives, 50 children</td>
+                            <td>6.60 Meldaxes</td>
+                        </tr>
+                    </table>
+                    <h3>The Skyvibez Effect</h3>
+                    <p>On average, it would take <strong>5.13 low DPS players</strong> to match Skyvibez's performance in a single encounter.</p>
+                    <p>For the entire raid, you would need <strong>5.04 low DPS players</strong> to equal one Skyvibez!</p>
+                    <p class="comparison">If Skyvibez were a one-man army, the lowest DPS would need to form a small platoon just to keep up!</p>
+                `
+            },
+            {
+                title: "Nexus-Princess Kyveza – The Founder of Dynasties",
+                content: `
+                    <div class="stats">
+                        <div class="stat-box">
+                            <h3>Skyvibez</h3>
+                            <p>32 wives, 320 children</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Meldax (Lowest DPS)</h3>
+                            <p>7 wives, 70 children</p>
+                        </div>
+                    </div>
+                    <p><strong>Statistical Breakdown:</strong></p>
+                    <ul>
+                        <li>Skyvibez outperformed Meldax by 357.14% in family size</li>
+                        <li>That's 25 more wives and 250 more children</li>
+                        <li>Skyvibez's family is 4.57 times larger than Meldax's</li>
+                    </ul>
+                    <p class="comparison">If Skyvibez was founding a new country, Meldax was just starting a book club.</p>
+                `
+            },
+            {
+                title: "Sikran, Captain of the Sureki – The Family Fleet Admiral",
+                content: `
+                    <div class="stats">
+                        <div class="stat-box">
+                            <h3>Skyvibez</h3>
+                            <p>28 wives, 280 children</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Sudi (Lowest DPS)</h3>
+                            <p>6 wives, 60 children</p>
+                        </div>
+                    </div>
+                    <p><strong>Statistical Breakdown:</strong></p>
+                    <ul>
+                        <li>Skyvibez outperformed Sudi by 366.67% in family size</li>
+                        <li>That's 22 more wives and 220 more children</li>
+                        <li>Skyvibez's family is 4.67 times larger than Sudi's</li>
+                    </ul>
+                    <p class="comparison">Skyvibez was like a cruise ship full of families, while Sudi was a rowboat with a couple of fishing rods.</p>
+                `
+            },
+            {
+                title: "The Bloodbound Horror – The Genealogical Nightmare",
+                content: `
+                    <div class="stats">
+                        <div class="stat-box">
+                            <h3>Skyvibez</h3>
+                            <p>28 wives, 280 children</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Mimsey (Lowest DPS)</h3>
+                            <p>6 wives, 60 children</p>
+                        </div>
+                    </div>
+                    <p><strong>Statistical Breakdown:</strong></p>
+                    <ul>
+                        <li>Skyvibez outperformed Mimsey by 366.67% in family size</li>
+                        <li>That's 22 more wives and 220 more children</li>
+                        <li>Skyvibez's family tree has 4.67 times more branches than Mimsey's</li>
+                    </ul>
+                    <p class="comparison">Skyvibez was the entire "23 and Me" database, while Mimsey was a hastily scribbled family tree on a napkin.</p>
+                `
+            },
+            {
+                title: "Ulgrax the Devourer – The Family Feast",
+                content: `
+                    <div class="stats">
+                        <div class="stat-box">
+                            <h3>Skyvibez</h3>
+                            <p>33 wives, 330 children</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Meldax (Lowest DPS)</h3>
+                            <p>5 wives, 50 children</p>
+                        </div>
+                    </div>
+                    <p><strong>Statistical Breakdown:</strong></p>
+                    <ul>
+                        <li>Skyvibez outperformed Meldax by a staggering 560% in family size</li>
+                        <li>That's 28 more wives and 280 more children</li>
+                        <li>Skyvibez's family is 6.6 times larger than Meldax's</li>
+                    </ul>
+                    <p class="comparison">Skyvibez was hosting the world's largest family game night, while Meldax was playing solitaire.</p>
+                `
+            }
+        ];
+
+        let currentPage = 0;
+
+        function renderPage() {
+            const pageContent = document.getElementById('pageContent');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            pageContent.innerHTML = `
+                <div class="page">
+                    <h2>${pages[currentPage].title}</h2>
+                    ${pages[currentPage].content}
                 </div>
-            );
+            `;
+
+            prevBtn.style.display = currentPage > 0 ? 'block' : 'none';
+            nextBtn.style.display = currentPage < pages.length - 1 ? 'block' : 'none';
         }
 
-        ReactDOM.render
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                renderPage();
+            }
+        });
+
+        renderPage();
+    </script>
+</body>
+</html>
