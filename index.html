@@ -34,7 +34,7 @@
             color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
         }
-
+        
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -114,7 +114,12 @@
             font-size: 1.5em;
             font-weight: bold;
         }
-
+        .mermaid {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
         .comparison {
             font-style: italic;
             text-align: center;
@@ -329,6 +334,18 @@
                     <div class="chart-container">
                         <canvas id="ulgraxChart"></canvas>
                     </div>
+                    <div class="mermaid">
+                        graph TD
+                        A[Skyvibez Total] -->|121 wives, 1210 children| B[Nexus-Princess Ky'veza]
+                        A -->|28 wives, 280 children| C[Sikran, Captain of the Sureki]
+                        A -->|28 wives, 280 children| D[The Bloodbound Horror]
+                        A -->|33 wives, 330 children| E[Ulgrax the Devourer]
+                        B -->|7 wives, 70 children| F[Meldax (Lowest DPS)]
+                        C -->|6 wives, 60 children| G[Sudi (Lowest DPS)]
+                        D -->|6 wives, 60 children| H[Mimsey (Lowest DPS)]
+                        E -->|5 wives, 50 children| I[Meldax (Lowest DPS)]
+                    </div>
+
                 `
             }
         ];
