@@ -242,7 +242,8 @@
                     </div>
                     <p><strong>Statistical Breakdown:</strong></p>
                     <ul>
-                        <li>Skyvibez outperformed Meldax by 357.14% in family size</li>
+                        <li>Skyvibez outperformed Meldax by 357.14% in family size. 
+                        That's approximately <strong>${calculateMetaphoricalSize(357.14).toFixed(2)} times</strong> the metaphorical size.</li>
                         <li>That's 25 more wives and 250 more children</li>
                         <li>Skyvibez's family is 4.57 times larger than Meldax's</li>
                     </ul>
@@ -339,25 +340,34 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const progressIndicator = document.querySelector('.progress-indicator');
-
+        
             pageContent.innerHTML = `
                 <div class="page">
                     <h2>${pages[currentPage].title}</h2>
                     ${pages[currentPage].content}
+                    ${currentPage === 1 ? 
+                        `<p>Skyvibez outperformed Meldax by 357.14% in family size. 
+                        That's approximately <strong>${calculateMetaphoricalSize(357.14).toFixed(2)} times</strong> the metaphorical size.</p>` : ''}
                 </div>
             `;
-
+        
             prevBtn.style.display = currentPage > 0 ? 'block' : 'none';
             nextBtn.style.display = currentPage < pages.length - 1 ? 'block' : 'none';
-
+        
             // Update progress indicator
             progressIndicator.innerHTML = pages.map((_, index) => `
                 <span class="${index === currentPage ? 'active' : ''}"></span>
             `).join('');
-
+        
             renderCharts();
         }
 
+
+        function calculateMetaphoricalSize(dpsIncrease) {
+            return 1 + (dpsIncrease / 100);
+        }
+
+        
         function renderCharts() {
             const charts = [
                 { id: 'overallChart', skyvibez: 1331, lowest: 264 },
