@@ -7,12 +7,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <style>
         :root {
-            --bg-color: #f0f0f0;
+            --bg-color: #f9f9f9;
             --text-color: #333;
             --primary-color: #4a86e8;
             --secondary-color: #34a853;
             --card-bg: #fff;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -22,13 +22,12 @@
                 --primary-color: #5dade2;
                 --secondary-color: #45b39d;
                 --card-bg: #2c2c2c;
-                --card-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+                --card-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             }
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
@@ -37,7 +36,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -49,30 +48,31 @@
 
         .page {
             background-color: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 15px;
             padding: 30px;
             margin-bottom: 20px;
             box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .page:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
 
         .navigation {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
         }
 
-        button {
+        .navigation button {
             background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 12px 24px;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
             font-weight: bold;
@@ -80,25 +80,28 @@
             letter-spacing: 1px;
         }
 
-        button:hover {
+        .navigation button:hover {
             background-color: var(--secondary-color);
             transform: scale(1.05);
         }
 
         .stats {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
+            flex-wrap: wrap;
             margin-bottom: 20px;
+            gap: 15px;
         }
 
         .stat-box {
             background-color: var(--primary-color);
             color: white;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
-            flex: 1;
-            margin: 0 10px;
+            flex: 1 1 200px;
+            margin: 10px;
+            box-shadow: var(--card-shadow);
         }
 
         .stat-box h3 {
@@ -124,6 +127,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: var(--card-shadow);
         }
 
         th, td {
@@ -155,12 +159,36 @@
             max-width: 400px;
             margin: 20px auto;
         }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .progress-indicator span {
+            display: block;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .progress-indicator span.active {
+            background-color: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>The Legend of Skyvibez: The Statistical Family Saga</h1>
         <div id="pageContent"></div>
+        <div class="progress-indicator">
+            <!-- Dots for each page, updated dynamically -->
+        </div>
         <div class="navigation">
             <button id="prevBtn" style="display:none;">Previous</button>
             <button id="nextBtn">Next</button>
@@ -310,6 +338,7 @@
             const pageContent = document.getElementById('pageContent');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+            const progressIndicator = document.querySelector('.progress-indicator');
 
             pageContent.innerHTML = `
                 <div class="page">
@@ -320,6 +349,11 @@
 
             prevBtn.style.display = currentPage > 0 ? 'block' : 'none';
             nextBtn.style.display = currentPage < pages.length - 1 ? 'block' : 'none';
+
+            // Update progress indicator
+            progressIndicator.innerHTML = pages.map((_, index) => `
+                <span class="${index === currentPage ? 'active' : ''}"></span>
+            `).join('');
 
             renderCharts();
         }
@@ -375,3 +409,8 @@
                 renderPage();
             }
         });
+
+        renderPage(); // Initial render
+    </script>
+</body>
+</html>
